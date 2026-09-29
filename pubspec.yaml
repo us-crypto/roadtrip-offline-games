@@ -1,0 +1,56 @@
+name: roadtrip_offline_games
+description: Offline Bluetooth multiplayer board & card games with Achaemenid theme for road trips.
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: '>=3.2.0 <4.0.0'
+  flutter: '>=3.16.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # State management
+  flutter_riverpod: ^2.5.1
+
+  # Multiplayer / networking
+  flutter_blue_plus: ^1.32.0          # BLE (discovery & optional transport)
+  web_socket_channel: ^3.0.0          # Hotspot / local WebSocket transport
+  connectivity_plus: ^6.0.0
+  # nearby_connections: ^4.3.0        # Evaluate later for higher-level P2P
+
+  # UI & utilities
+  google_fonts: ^6.2.1                # For clean Persian-supporting fonts if needed
+  flutter_svg: ^2.0.10+1
+  intl: any
+  uuid: ^4.4.0
+  shared_preferences: ^2.2.3
+
+  # Optional later
+  # qr_flutter: ^4.1.0
+  # mobile_scanner: ^5.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  generate: true
+
+  assets:
+    - assets/boards/
+    - assets/cards/
+    - assets/icons/
+    - assets/images/
+
+  # fonts:
+  #   - family: Vazirmatn
+  #     fonts:
+  #       - asset: assets/fonts/Vazirmatn-Regular.ttf
+  #       - asset: assets/fonts/Vazirmatn-Bold.ttf
+  #         weight: 700
