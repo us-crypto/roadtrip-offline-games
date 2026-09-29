@@ -2,6 +2,7 @@
 
 **Offline Bluetooth multiplayer board & card games for road trips**  
 Low storage • No ads • Cross-platform (iOS ↔ Android) • Local hotspot support  
+**Achaemenid Empire (pre-Islamic Persia) visual theme**  
 Targeted for the Iranian market (Café Bazaar + Instagram + Telegram)
 
 ---
@@ -11,9 +12,11 @@ Targeted for the Iranian market (Café Bazaar + Instagram + Telegram)
 An offline-first multiplayer game app designed for road trips, long car rides, and offline hangouts.  
 Play classic games with 2+ players over **real Bluetooth** or **local Wi-Fi hotspot** — no internet required.
 
+Inspired by the grandeur of the **Achaemenid Empire** (Persepolis, Susa): deep blues, gold, turquoise, high-contrast relief-style UI that remains readable in a moving car.
+
 ### Core Principles
 - **Ultra-low storage** (< 30–40 MB)
-- **Beautiful but lightweight graphics**
+- **Beautiful but lightweight graphics** (Achaemenid-inspired)
 - **Extremely simple & fast UI** (optimized for car use / one-handed)
 - **Zero annoying ads** in the offline version
 - **True cross-platform** (iPhone ↔ Android)
@@ -21,29 +24,25 @@ Play classic games with 2+ players over **real Bluetooth** or **local Wi-Fi hots
 
 ---
 
-## MVP Games (Focus First)
-
-We start **extremely focused**. Only these three games must be excellent:
+## MVP Games
 
 1. **تخته‌نرد (Backgammon)**  
-   - 2 players via Bluetooth  
+   - 2 players via Bluetooth / Hotspot  
    - 2 players on the same phone (pass-and-play)
 
-2. **پاسور چهاربرگ (Pasur / 4-leaf card game)**  
+2. **پاسور چهاربرگ (Pasur)**  
    - 2 and 4 players  
-   - Strong multiplayer support (especially 4 players)
+   - Strong multiplayer support
 
-3. **شطرنج ساده و تمیز (Clean & Simple Chess)**  
+3. **شطرنج ساده و تمیز (Clean Chess)**  
    - Classic rules  
-   - Clean modern board design
+   - Clean modern board with Achaemenid styling
 
-> Casino games (Blackjack etc.) and full Uno will come later.  
-> Focus = quality over quantity.
+4. **Uno**  
+   - 2–4 players  
+   - Classic rules + simple house rules
 
-Later expansion ideas:
-- Uno
-- More Iranian traditional card games
-- Online mode with optional ads / skins / donations
+> Focus remains quality over quantity. Casino games later.
 
 ---
 
@@ -51,113 +50,75 @@ Later expansion ideas:
 
 | Feature                    | Priority | Notes |
 |---------------------------|----------|-------|
-| Real Bluetooth multiplayer | Critical | iOS ↔ Android |
-| Local Wi-Fi Hotspot        | Critical | Fallback when Bluetooth is unstable |
-| Cross-platform             | Critical | Flutter recommended |
-| Same-device pass-and-play  | High     | Especially for Backgammon |
-| 4-player support           | High     | Especially Pasur |
-| Low storage & no ads       | Critical | Offline version completely free |
-| Car-friendly UI            | High     | Large buttons, high contrast, minimal text |
+| Real Bluetooth multiplayer | Critical | Hybrid approach (see docs) |
+| Local Wi-Fi Hotspot        | Critical | Most reliable fallback |
+| Cross-platform             | Critical | Flutter |
+| Same-device pass-and-play  | High     | Especially Backgammon |
+| 4-player support           | High     | Pasur & Uno |
+| Low storage & no ads       | Critical | Offline completely free |
+| Car-friendly UI            | High     | Large buttons, high contrast |
+| Achaemenid visual identity | High     | Gold + turquoise on dark stone |
 
 ---
 
-## Tech Stack Recommendation
+## Tech Stack
 
-**Primary choice: Flutter**
+**Flutter** (recommended & used)
 
-Reasons:
-- Excellent cross-platform (iOS + Android from one codebase)
-- Good Bluetooth packages (`flutter_blue_plus`, `nearby_connections`, etc.)
-- Can keep app size very small with careful asset management
-- Fast development for polished UI
-- Strong community for multiplayer / local networking
+### Multiplayer Strategy (2026 research)
+- **Primary reliable path**: Local Wi-Fi Hotspot + WebSocket / TCP (most stable for 2–4 players across iOS/Android)
+- **Bluetooth discovery + connection**: `flutter_blue_plus` (best maintained BLE package) + custom GATT or hybrid
+- **P2P helpers**: `flutter_nearby_connections` / forks (Android Nearby Connections + iOS MultipeerConnectivity)
+- Pure phone-to-phone BLE is still technically hard for multi-device; hybrid is the practical choice for reliability.
 
-Alternative: React Native + Expo (but Bluetooth + size control is harder)
+See `docs/multiplayer-architecture.md` for details.
 
-### Multiplayer Architecture
-1. **Primary**: Bluetooth Low Energy (BLE) or classic Bluetooth  
-2. **Fallback**: Local Wi-Fi hotspot + WebSocket / TCP  
-3. Host creates room → Guests join by scanning or QR / short code
-
-### Graphics Strategy
-- Vector-based or highly optimized PNG/WebP assets
-- Minimal animations
-- Theme system (later monetization via skins)
+### Other packages
+- State: Riverpod or Bloc
+- UI: Material 3 + custom Achaemenid theme
+- Localization: `flutter_localizations` + Persian (fa)
+- Assets: optimized WebP / SVG where possible
 
 ---
 
-## Monetization Plan
+## Design Theme – Achaemenid Empire
 
-- **Offline version**: Completely free + zero ads  
-  → Maximum user acquisition & trust
+- **Primary palette**: Deep lapis/Egyptian blue, gold, turquoise/malachite green, cinnabar red accents, dark stone gray/black backgrounds
+- **Motifs**: Rosettes, geometric borders, simplified Persepolis reliefs, winged elements (subtle)
+- **Typography**: High-contrast, large sizes for car readability
+- **Buttons**: Large touch targets, gold borders on dark panels
 
-- **Future Online mode**:
-  - Free account
-  - Optional ads
-  - Donations
-  - Paid skins / themes / board designs
+Full details in `docs/design-system.md`.
+
+---
+
+## Project Status
+
+- [x] Repository + vision README
+- [x] Detailed docs (MVP scope, multiplayer architecture, design system)
+- [x] Flutter project skeleton (`pubspec.yaml`, `lib/` structure, theme, basic screens)
+- [ ] Core multiplayer layer
+- [ ] Backgammon implementation
+- [ ] Pasur implementation
+- [ ] Chess implementation
+- [ ] Uno implementation
+- [ ] Testing on real devices (iOS + Android)
+- [ ] Café Bazaar preparation
+
+---
+
+## Monetization
+
+- Offline version: completely free, zero ads
+- Future online: optional ads / donations / paid Achaemenid skins & boards
 
 ---
 
 ## Iranian Market Notes
 
-- Users hate heavy apps, too many ads, and bugs
-- Traditional games (تخته‌نرد, پاسور, شطرنج) still have strong demand
-- Distribution: **Café Bazaar** is essential + Instagram + Telegram channels
-- Support for Persian language from day one
-
-**Main risks**:
-1. Stable Bluetooth between iOS and Android is technically hard
-2. Low quality → users return to existing apps quickly
-3. Marketing in Iran is critical
-
----
-
-## Project Structure (Planned)
-
-```
-roadtrip-offline-games/
-├── README.md
-├── docs/
-│   ├── mvp-scope.md
-│   ├── multiplayer-architecture.md
-│   └── design-system.md
-├── assets/
-│   ├── boards/
-│   ├── cards/
-│   └── icons/
-├── lib/                    # Flutter source
-│   ├── main.dart
-│   ├── games/
-│   │   ├── backgammon/
-│   │   ├── pasur/
-│   │   └── chess/
-│   ├── multiplayer/
-│   ├── ui/
-│   └── core/
-├── pubspec.yaml
-└── ...
-```
-
----
-
-## Next Steps
-
-1. Finalize tech stack & create Flutter project skeleton
-2. Design simple high-contrast UI (car-friendly)
-3. Implement local multiplayer foundation (Bluetooth + Hotspot)
-4. Build Backgammon first (most popular for road trips)
-5. Then Pasur (4-player challenge)
-6. Then Chess
-
----
-
-## Contributing
-
-This is currently a private/personal project under active planning.  
-Feel free to open issues with ideas or feedback.
+Users are sensitive to heavy size, aggressive ads, and bugs. Traditional games still have strong demand. Persian language from day one. Marketing via Café Bazaar + Instagram + Telegram is essential.
 
 ---
 
 **Made for long Iranian road trips** 🇮🇷  
-No internet. Just friends, cards, and dice.
+No internet. Just friends, cards, dice, and the spirit of Persepolis.
